@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "flappy-bird",
+    "name": "flapye",
     "description": "A super addictive 2D game!",
-    "slug": "snack-Hynj9cFqQ",
+    "slug": "flapye",
     "privacy": "unlisted",
-    "sdkVersion": "24.0.0",
+    "sdkVersion": "25.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",

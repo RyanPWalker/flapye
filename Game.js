@@ -36,7 +36,15 @@ export default class Game extends React.Component {
   componentWillMount() {
     THREE.suppressExpoWarnings(true);
     /// Audio is currently broken in snack :/
-    // this.setupAudio();
+    this.setupAudio();
+    // switch (Math.floor(Math.random() * 3) + 1) {
+    //   case 1:
+    //     this.audio.legend();
+    //   case 2:
+    //     this.audio.jibberish();
+    //   case 3:
+    //     this.audio.robot();
+    // }
   }
 
   setupAudio = async () => {
@@ -256,7 +264,7 @@ export default class Game extends React.Component {
     if (!this.gameOver) {
       // @(Evan Bacon) These are in-game taps for making the bird flap
       this.velocity = FLAP;
-      // this.audio.wing();
+      this.audio.flap();
     } else {
       // @(Evan Bacon) This is an end-game tap to reset the game
       this.reset();
@@ -266,7 +274,7 @@ export default class Game extends React.Component {
   //@(Evan Bacon) Update the state with the new score so our React component knows to update... Then play cool noise!
   addScore = () => {
     this.setState({ score: this.state.score + 1 });
-    // this.audio.point();
+    this.audio.point();
   };
 
   //@(Evan Bacon) stop the pipe spawning and play that fresh slapping sound.
@@ -275,7 +283,8 @@ export default class Game extends React.Component {
 
     clearInterval(this.pillarInterval);
 
-    // this.audio.hit();
+    this.audio.hit();
+    this.audio.no();
   };
 
   //@(Evan Bacon) This is the clean state before each game.
