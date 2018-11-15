@@ -13,7 +13,7 @@ import "xmldom-qsa"; // 1.0.3
   These are some global settings for the game
 */
 const SPEED = 1.6;
-const GRAVITY = 1100;
+const GRAVITY = 1000;
 const FLAP = 320;
 const SPAWN_RATE = 2600;
 const OPENING = 120;
@@ -26,6 +26,7 @@ export default class Game extends React.Component {
   deadPipeBottoms = [];
 
   gameStarted = false;
+  gameStartAudio = false;
   gameOver = false;
   velocity = 0;
 
@@ -37,14 +38,6 @@ export default class Game extends React.Component {
     THREE.suppressExpoWarnings(true);
     /// Audio is currently broken in snack :/
     this.setupAudio();
-    // switch (Math.floor(Math.random() * 3) + 1) {
-    //   case 1:
-    //     this.audio.legend();
-    //   case 2:
-    //     this.audio.jibberish();
-    //   case 3:
-    //     this.audio.robot();
-    // }
   }
 
   setupAudio = async () => {
@@ -290,6 +283,7 @@ export default class Game extends React.Component {
   //@(Evan Bacon) This is the clean state before each game.
   reset = () => {
     this.gameStarted = false;
+    this.gameStartAudio = false;
     this.gameOver = false;
     this.setState({ score: 0 });
 
@@ -364,6 +358,17 @@ export default class Game extends React.Component {
       this.player.update(delta);
       this.player.y = 8 * Math.cos(Date.now() / 200);
       this.player.angle = 0;
+
+      if (!this.gameStartAudio && this.audio.legend) {
+        this.gameStartAudio = true;
+        const num = Math.floor(Math.random() * 3) + 1;
+        if (num === 1)
+          this.audio.legend();
+        if (num === 2)
+          this.audio.jibberish();
+        if (num === 3)
+          this.audio.robot();
+      }
     }
 
     if (!this.gameOver) {
